@@ -634,6 +634,12 @@ class Trainer(object):
                     all_images = torch.cat(all_images_list, dim=0)
                     utils.save_image(all_images, str(self.results_folder / f'sample-{milestone}.png'), nrow = 6)
                     self.save(milestone)
+                    
+                    drive_file = "/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint"
+                    if os.path.ismount('/content/drive'):
+                        missing = set(os.listdir(drive_file)).difference(os.listdir('results'))
+                        for file in missing:
+                            shutil.copy(os.path.join('results', file),os.path.join(drive_file, file))
 
                 self.step += 1
                 pbar.update(1)
