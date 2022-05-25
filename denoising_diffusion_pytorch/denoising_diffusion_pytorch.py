@@ -641,7 +641,7 @@ class Trainer(object):
                     
                     drive_file = "/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint"
                     if os.path.ismount('/content/drive'):
-                        missing = set(os.listdir(drive_file)).difference(os.listdir('results'))
+                        missing = set(os.listdir('results')).difference(os.listdir(drive_file))
                         for file in missing:
                             shutil.copy(os.path.join('results', file),os.path.join(drive_file, file))
 
