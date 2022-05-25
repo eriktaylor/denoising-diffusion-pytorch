@@ -8,7 +8,9 @@ This implementation was transcribed from the official Tensorflow version <a href
 
 <img src="./sample.png" width="500px"><img>
 
-[![PyPI version](https://badge.fury.io/py/denoising-diffusion-pytorch.svg)](https://badge.fury.io/py/denoising-diffusion-pytorch)
+[![PyPI version](https://badge.fury.io/py/denoising-diffusion-pytorch.svg)](https://badge.fury.io/py/denoising-diffusion-pytorch)j
+
+Modified here for use in COLAB environemnt - ET May 2022
 
 ## Install
 
