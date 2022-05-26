@@ -574,7 +574,6 @@ class Trainer(object):
 
         self.step_start_ema = step_start_ema
         self.save_and_sample_every = save_and_sample_every
-        self.drive_file = drive_file
 
         self.batch_size = train_batch_size
         self.image_size = diffusion_model.image_size
@@ -592,6 +591,7 @@ class Trainer(object):
 
         self.results_folder = Path(results_folder)
         self.results_folder.mkdir(exist_ok = True)
+        self.drive_file = drive_file
 
         self.reset_parameters()
 
