@@ -553,7 +553,7 @@ class Trainer(object):
         step_start_ema = 2000,
         update_ema_every = 10,
         save_and_sample_every = 1000,
-        results_folder = './results'
+        results_folder = './results',
         drive_file = '/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint'
     ):
         super().__init__()
