@@ -554,7 +554,7 @@ class Trainer(object):
         update_ema_every = 10,
         save_and_sample_every = 1000,
         results_folder = './results'
-        drive_file = "/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint"
+        drive_file = '/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint'
     ):
         super().__init__()
         self.model = diffusion_model
