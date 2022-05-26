@@ -640,11 +640,10 @@ class Trainer(object):
                     utils.save_image(all_images, str(self.results_folder / f'sample-{milestone}.png'), nrow = 6)
                     self.save(milestone)
                     
-                    drive_file = self.drive_file
                     if os.path.ismount('/content/drive'):
-                        missing = set(os.listdir('results')).difference(os.listdir(drive_file))
+                        missing = set(os.listdir('results')).difference(os.listdir(self.drive_file))
                         for file in missing:
-                            shutil.copy(os.path.join('results', file),os.path.join(drive_file, file))
+                            shutil.copy(os.path.join('results', file),os.path.join(self.drive_file, file))
 
                 self.step += 1
                 pbar.update(1)
