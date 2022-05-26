@@ -554,6 +554,7 @@ class Trainer(object):
         update_ema_every = 10,
         save_and_sample_every = 1000,
         results_folder = './results'
+        drive_file = "/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint"
     ):
         super().__init__()
         self.model = diffusion_model
@@ -639,7 +640,7 @@ class Trainer(object):
                     utils.save_image(all_images, str(self.results_folder / f'sample-{milestone}.png'), nrow = 6)
                     self.save(milestone)
                     
-                    drive_file = "/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint"
+                    drive_file = self.drive_file
                     if os.path.ismount('/content/drive'):
                         missing = set(os.listdir('results')).difference(os.listdir(drive_file))
                         for file in missing:
