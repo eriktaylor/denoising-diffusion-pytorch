@@ -78,6 +78,10 @@ trainer.train()
 
 Samples and model checkpoints will be logged to `./results` periodically
 
+## The complete colab notebook
+
+->To be attached here soon - ET
+
 ## Citations
 
 ```bibtex
