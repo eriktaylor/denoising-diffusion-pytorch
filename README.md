@@ -6,9 +6,9 @@ Implementation of <a href="https://arxiv.org/abs/2006.11239">Denoising Diffusion
 
 This implementation was transcribed from the official Tensorflow version <a href="https://github.com/hojonathanho/diffusion">here</a>
 
-<img src="./sample.png" width="500px"><img>
+#<img src="./sample.png" width="500px"><img>
 
-[![PyPI version](https://badge.fury.io/py/denoising-diffusion-pytorch.svg)](https://badge.fury.io/py/denoising-diffusion-pytorch)j
+#[![PyPI version](https://badge.fury.io/py/denoising-diffusion-pytorch.svg)](https://badge.fury.io/py/denoising-diffusion-pytorch)j
 
 Modified here for use in COLAB environemnt - ET May 2022
 -> added method to save checkpoints into Google Drive
