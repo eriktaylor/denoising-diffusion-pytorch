@@ -50,7 +50,7 @@ trainer.train()
 
 Samples and model checkpoints will be logged to `./results` periodically
 
-## The complete colab notebook
+## The colab notebook tutorial
 
 ->To be attached here soon - ET
 
