@@ -9,6 +9,7 @@ This implementation was transcribed from the official Tensorflow version <a href
 
 
 Modified here for use in COLAB environemnt - ET May 2022
+
 -> added method to save checkpoints into Google Drive
 -> implemented method to load model and run inference in colab
 
