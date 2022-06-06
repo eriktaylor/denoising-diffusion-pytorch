@@ -567,6 +567,7 @@ class Trainer(object):
         save_and_sample_every = 1000,
         results_folder = './results',
         drive_file = '/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint' #ET
+        saved_loss = []  #ET - save loss
 
     ):
         super().__init__()
@@ -596,6 +597,7 @@ class Trainer(object):
         self.results_folder.mkdir(exist_ok = True)
         
         self.drive_file = drive_file #ET -> added for colab & google drive use
+        self.saved_loss = saved_loss  #ET - save loss
 
         self.reset_parameters()
 
@@ -637,6 +639,7 @@ class Trainer(object):
                         self.scaler.scale(loss / self.gradient_accumulate_every).backward()
 
                     pbar.set_description(f'loss: {loss.item():.4f}')
+                    self.saved_loss.append(loss.item()) #ET - save loss
 
                 self.scaler.step(self.opt)
                 self.scaler.update()
@@ -660,6 +663,7 @@ class Trainer(object):
                         missing = set(os.listdir('results')).difference(os.listdir(self.drive_file))
                         for file in missing:
                             shutil.copy(os.path.join('results', file),os.path.join(self.drive_file, file))
+                    print('testing',self.saved_loss)
 
                 self.step += 1
                 pbar.update(1)
