@@ -20,6 +20,7 @@ from einops import rearrange
 #added ET
 import os
 import shutil
+import pickle #store saved_loss as .pkl file
 
 # helpers functions
 
@@ -618,6 +619,9 @@ class Trainer(object):
             'scaler': self.scaler.state_dict()
         }
         torch.save(data, str(self.results_folder / f'model-{milestone}.pt'))
+        #save the loss history
+        with open(os.path.join(self.results_folder, 'save_loss.pkl'), 'wb') as f:
+            pickle.dump(self.saved_loss, f)
 
     def load(self, milestone):
         data = torch.load(str(self.results_folder / f'model-{milestone}.pt'))
@@ -626,6 +630,10 @@ class Trainer(object):
         self.model.load_state_dict(data['model'])
         self.ema_model.load_state_dict(data['ema'])
         self.scaler.load_state_dict(data['scaler'])
+        
+        #load the loss history
+        with open(os.path.join(self.results_folder, 'save_loss.pkl'), "rb") as fp:   # Unpickling
+            self.saved_loss = pickle.load(fp)
 
     def train(self):
         with tqdm(initial = self.step, total = self.train_num_steps) as pbar:
