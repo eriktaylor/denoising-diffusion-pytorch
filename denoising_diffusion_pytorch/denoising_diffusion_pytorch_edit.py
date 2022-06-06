@@ -566,7 +566,7 @@ class Trainer(object):
         update_ema_every = 10,
         save_and_sample_every = 1000,
         results_folder = './results',
-        drive_file = '/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint' #ET
+        drive_file = '/content/drive/My Drive/Colab Notebooks/GAN/diffusion_model/checkpoint', #ET
         saved_loss = []  #ET - save loss
 
     ):
