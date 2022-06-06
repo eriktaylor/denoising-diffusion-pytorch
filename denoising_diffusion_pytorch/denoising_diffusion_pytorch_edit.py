@@ -665,8 +665,6 @@ class Trainer(object):
                         missing = set(os.listdir('results')).difference(os.listdir(self.drive_file))
                         for file in missing:
                             shutil.copy(os.path.join('results', file),os.path.join(self.drive_file, file))
-                    #print('testing',self.saved_loss)
-                    plt.scatter(*zip(*self.saved_loss))
 
                 self.step += 1
                 pbar.update(1)
