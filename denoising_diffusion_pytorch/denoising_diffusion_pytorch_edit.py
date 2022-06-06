@@ -534,8 +534,8 @@ class Dataset(data.Dataset):
             #transforms.Resize(image_size),
             #transforms.CenterCrop(image_size),
             #transforms.RandomHorizontalFlip(),#old resizing schedule, new augmentation schedule below
-            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0), ratio=(0.85, 1.2))
-            transforms.RandomHorizontalFlip(p=0.5)            
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0), ratio=(0.85, 1.2)),
+            transforms.RandomHorizontalFlip(p=0.5),
             transforms.ToTensor()
         ])
 
