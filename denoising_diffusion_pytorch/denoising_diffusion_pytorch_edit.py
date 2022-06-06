@@ -20,7 +20,6 @@ from einops import rearrange
 #added ET
 import os
 import shutil
-import matplotlib.pyplot as plt
 
 # helpers functions
 
