@@ -640,6 +640,7 @@ class Trainer(object):
 
                     pbar.set_description(f'loss: {loss.item():.4f}')
                     self.saved_loss.append(loss.item()) #ET - save loss
+                    #self.saved_loss.append([self.step,loss.item()]) #for plotting loss
 
                 self.scaler.step(self.opt)
                 self.scaler.update()
@@ -664,6 +665,8 @@ class Trainer(object):
                         for file in missing:
                             shutil.copy(os.path.join('results', file),os.path.join(self.drive_file, file))
                     print('testing',self.saved_loss)
+                    #for xe, ye in self.saved_loss:
+                    #    plt.scatter([xe] * len(ye), ye)  
 
                 self.step += 1
                 pbar.update(1)
