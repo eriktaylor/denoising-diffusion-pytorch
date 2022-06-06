@@ -615,7 +615,8 @@ class Trainer(object):
             'step': self.step,
             'model': self.model.state_dict(),
             'ema': self.ema_model.state_dict(),
-            'scaler': self.scaler.state_dict()
+            'scaler': self.scaler.state_dict(),
+            'saved_loss': self.saved_loss.state_dict()
         }
         torch.save(data, str(self.results_folder / f'model-{milestone}.pt'))
 
@@ -626,6 +627,7 @@ class Trainer(object):
         self.model.load_state_dict(data['model'])
         self.ema_model.load_state_dict(data['ema'])
         self.scaler.load_state_dict(data['scaler'])
+        self.saved_loss.load_state_dict(data['saved_loss'])
 
     def train(self):
         with tqdm(initial = self.step, total = self.train_num_steps) as pbar:
