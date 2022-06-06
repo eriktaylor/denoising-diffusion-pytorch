@@ -20,6 +20,7 @@ from einops import rearrange
 #added ET
 import os
 import shutil
+import matplotlib.pyplot as plt
 
 # helpers functions
 
@@ -639,8 +640,8 @@ class Trainer(object):
                         self.scaler.scale(loss / self.gradient_accumulate_every).backward()
 
                     pbar.set_description(f'loss: {loss.item():.4f}')
-                    self.saved_loss.append(loss.item()) #ET - save loss
-                    #self.saved_loss.append([self.step,loss.item()]) #for plotting loss
+                    #self.saved_loss.append(loss.item()) #ET - save loss
+                    self.saved_loss.append([self.step,loss.item()]) #for plotting loss
 
                 self.scaler.step(self.opt)
                 self.scaler.update()
@@ -664,9 +665,8 @@ class Trainer(object):
                         missing = set(os.listdir('results')).difference(os.listdir(self.drive_file))
                         for file in missing:
                             shutil.copy(os.path.join('results', file),os.path.join(self.drive_file, file))
-                    print('testing',self.saved_loss)
-                    #for xe, ye in self.saved_loss:
-                    #    plt.scatter([xe] * len(ye), ye)  
+                    #print('testing',self.saved_loss)
+                    plt.scatter(*zip(*self.saved_loss))
 
                 self.step += 1
                 pbar.update(1)
