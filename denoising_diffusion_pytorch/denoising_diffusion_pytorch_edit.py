@@ -532,9 +532,10 @@ class Dataset(data.Dataset):
 
         self.transform = transforms.Compose([
             #transforms.Resize(image_size),
-            transforms.RandomResizedCrop(image_size),
-            transforms.RandomHorizontalFlip(),
             #transforms.CenterCrop(image_size),
+            #transforms.RandomHorizontalFlip(),#old resizing schedule, new augmentation schedule below
+            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0), ratio=(0.85, 1.2))
+            transforms.RandomHorizontalFlip(p=0.5)            
             transforms.ToTensor()
         ])
 
