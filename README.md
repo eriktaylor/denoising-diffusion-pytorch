@@ -14,6 +14,8 @@ Modified here for use in COLAB environemnt - ET May 2022
 
 -> implemented method to load model and run inference in colab
 
+-> modified image resizing and data augmentation scheme
+
 This is for educational purposes only. See below for the shared tutorial file.
 
 ## Usage
