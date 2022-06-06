@@ -16,7 +16,7 @@ Modified here for use in COLAB environemnt - ET May 2022
 
 -> modified image resizing and data augmentation scheme
 
-This is for educational purposes only. See below for the shared tutorial file.
+This is for educational purposes only. See below for the shared Colaboratory tutorial file.
 
 ## Usage
 
