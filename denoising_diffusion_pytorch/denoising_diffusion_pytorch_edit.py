@@ -619,8 +619,8 @@ class Trainer(object):
             'scaler': self.scaler.state_dict()
         }
         torch.save(data, str(self.results_folder / f'model-{milestone}.pt'))
-        #save the loss history
-        with open(os.path.join(self.results_folder, 'save_loss.pkl'), 'wb') as f:
+        #save the loss history 
+        with open(os.path.join(self.results_folder,'save_'+str(milestone)+'.pkl'), 'wb') as f:
             pickle.dump(self.saved_loss, f)
 
     def load(self, milestone):
@@ -632,7 +632,7 @@ class Trainer(object):
         self.scaler.load_state_dict(data['scaler'])
         
         #load the loss history
-        with open(os.path.join(self.results_folder, 'save_loss.pkl'), "rb") as fp:   # Unpickling
+        with open(os.path.join(self.results_folder, 'save_'+str(milestone)+'.pkl'), "rb") as fp:   # Unpickling
             self.saved_loss = pickle.load(fp)
 
     def train(self):
