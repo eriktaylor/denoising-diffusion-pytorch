@@ -22,6 +22,12 @@ import os
 import shutil
 import pickle #store saved_loss as .pkl file
 
+#for loading 3d MRI data
+import nibabel as nib
+from skimage.transform import resize
+import csv
+
+
 # helpers functions
 
 def exists(x):
@@ -525,28 +531,63 @@ class GaussianDiffusion(nn.Module):
 # dataset classes
 
 class Dataset(data.Dataset):
-    def __init__(self, folder, image_size, exts = ['jpg', 'jpeg', 'png']):
+    #def __init__(self, folder, image_size, exts = ['jpg', 'jpeg', 'png']):
+    def __init__(self, folder, image_size):
         super().__init__()
         self.folder = folder
         self.image_size = image_size
-        self.paths = [p for ext in exts for p in Path(f'{folder}').glob(f'**/*.{ext}')]
+        
+        f = open('CN_list.csv','r')
+		rdr = csv.reader(f)
+		next(rdr) #skip header
 
-        self.transform = transforms.Compose([
-            #transforms.Resize(image_size),
-            #transforms.CenterCrop(image_size),
-            #transforms.RandomHorizontalFlip(),#old resizing schedule, new augmentation schedule below
-            transforms.RandomResizedCrop(image_size, scale=(0.8, 1.0), ratio=(0.85, 1.2)),
-            transforms.RandomHorizontalFlip(p=0.5),
-            transforms.ToTensor()
-        ])
+		name = []		
+		labels = []
+		date  = []
+		desc = []
+		for line in rdr:
+			[month,day,year] = line[9].split('/')
+			month = month.zfill(2)
+			date.append(year+'-'+month+'-'+day)
+			name.append(line[1])
+			desc.append(line[7].replace(' ','_'))
 
-    def __len__(self):
-        return len(self.paths)
+		name = np.asarray(name)
+		date = np.asarray(date)
+		desc = np.asarray(desc)
 
+		self.name =name
+		self.date =date
+		self.desc =desc
+        
+	def __len__(self):
+		return len(self.name)     
+            
     def __getitem__(self, index):
-        path = self.paths[index]
-        img = Image.open(path)
-        return self.transform(img)
+		path = os.path.join(self.root,self.name[index],self.desc[index])
+		files = os.listdir(path)
+		for file in files:
+			if file[:10] == self.date[index]:
+				rname = file
+		aname = os.listdir(os.path.join(path,rname))[0]
+		path = os.path.join(path,rname,aname)
+		img_path = os.path.join(path,os.listdir(path)[0])
+		img = nib.load(img_path)
+		img = np.swapaxes(img.get_data(),1,2)
+		img = np.flip(img,1)
+		img = np.flip(img,2)
+		sp_size = 128
+		img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
+		if self.augmentation:
+			random_n = torch.rand(1)
+			random_i = 0.3*torch.rand(1)[0]+0.7
+			if random_n[0] > 0.5:
+				img = np.flip(img,0)	
+				img = img*random_i.data.cpu().numpy()
+		imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
+		imageout = imageout*2-1
+        return imageout
+    
 
 # trainer class
 
