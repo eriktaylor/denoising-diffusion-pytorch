@@ -538,27 +538,26 @@ class Dataset(data.Dataset):
         self.image_size = image_size
         
         f = open('CN_list.csv','r')
-		rdr = csv.reader(f)
-		next(rdr) #skip header
+        rdr = csv.reader(f)
+        next(rdr) #skip header
+        name = []		
+        labels = []
+        date  = []
+        desc = []
+        for line in rdr:
+            [month,day,year] = line[9].split('/')
+            month = month.zfill(2)
+            date.append(year+'-'+month+'-'+day)
+            name.append(line[1])
+            desc.append(line[7].replace(' ','_'))
 
-		name = []		
-		labels = []
-		date  = []
-		desc = []
-		for line in rdr:
-			[month,day,year] = line[9].split('/')
-			month = month.zfill(2)
-			date.append(year+'-'+month+'-'+day)
-			name.append(line[1])
-			desc.append(line[7].replace(' ','_'))
+        name = np.asarray(name)
+        date = np.asarray(date)
+        desc = np.asarray(desc)
 
-		name = np.asarray(name)
-		date = np.asarray(date)
-		desc = np.asarray(desc)
-
-		self.name =name
-		self.date =date
-		self.desc =desc
+        self.name =name
+        self.date =date
+        self.desc =desc
         
     def __len__(self):
         return len(self.name)     
@@ -567,8 +566,8 @@ class Dataset(data.Dataset):
         path = os.path.join(self.root,self.name[index],self.desc[index])
         files = os.listdir(path)
         for file in files:
-		if file[:10] == self.date[index]:
-			rname = file
+            if file[:10] == self.date[index]:
+                rname = file
         aname = os.listdir(os.path.join(path,rname))[0]
         path = os.path.join(path,rname,aname)
         img_path = os.path.join(path,os.listdir(path)[0])
