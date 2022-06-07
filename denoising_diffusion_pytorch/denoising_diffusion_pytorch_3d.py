@@ -564,7 +564,7 @@ class Dataset(data.Dataset):
         return len(self.name)     
             
     def __getitem__(self, index):
-        path = os.path.join(self.root,self.name[index],self.desc[index])
+        path = os.path.join(self.folder,self.name[index],self.desc[index])
         files = os.listdir(path)
         for file in files:
             if file[:10] == self.date[index]:
