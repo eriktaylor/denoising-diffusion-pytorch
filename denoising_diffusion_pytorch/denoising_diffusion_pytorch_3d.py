@@ -560,32 +560,26 @@ class Dataset(data.Dataset):
 		self.date =date
 		self.desc =desc
         
-	def __len__(self):
-		return len(self.name)     
+    def __len__(self):
+        return len(self.name)     
             
     def __getitem__(self, index):
-		path = os.path.join(self.root,self.name[index],self.desc[index])
-		files = os.listdir(path)
-		for file in files:
-			if file[:10] == self.date[index]:
-				rname = file
-		aname = os.listdir(os.path.join(path,rname))[0]
-		path = os.path.join(path,rname,aname)
-		img_path = os.path.join(path,os.listdir(path)[0])
-		img = nib.load(img_path)
-		img = np.swapaxes(img.get_data(),1,2)
-		img = np.flip(img,1)
-		img = np.flip(img,2)
-		sp_size = 128
-		img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
-		if self.augmentation:
-			random_n = torch.rand(1)
-			random_i = 0.3*torch.rand(1)[0]+0.7
-			if random_n[0] > 0.5:
-				img = np.flip(img,0)	
-				img = img*random_i.data.cpu().numpy()
-		imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
-		imageout = imageout*2-1
+        path = os.path.join(self.root,self.name[index],self.desc[index])
+        files = os.listdir(path)
+        for file in files:
+		if file[:10] == self.date[index]:
+			rname = file
+        aname = os.listdir(os.path.join(path,rname))[0]
+        path = os.path.join(path,rname,aname)
+        img_path = os.path.join(path,os.listdir(path)[0])
+        img = nib.load(img_path)
+        img = np.swapaxes(img.get_data(),1,2)
+        img = np.flip(img,1)
+        img = np.flip(img,2)
+        sp_size = 128
+        img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
+        imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
+        imageout = imageout*2-1
         return imageout
     
 
