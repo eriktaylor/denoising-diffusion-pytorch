@@ -537,7 +537,7 @@ class Dataset(data.Dataset):
         self.folder = folder
         self.image_size = image_size
         
-        f = open('CN_list.csv','r')
+        f = open('CN_list_fix.csv','r')
         rdr = csv.reader(f)
         next(rdr) #skip header
         name = []		
