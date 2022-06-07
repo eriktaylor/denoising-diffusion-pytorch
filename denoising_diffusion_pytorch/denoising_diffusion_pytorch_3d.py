@@ -352,7 +352,7 @@ class GaussianDiffusion(nn.Module):
         denoise_fn,
         *,
         image_size,
-        channels = 3,
+        channels = 128,
         timesteps = 1000,
         loss_type = 'l1',
         objective = 'pred_noise'
