@@ -26,6 +26,7 @@ import pickle #store saved_loss as .pkl file
 import nibabel as nib
 from skimage.transform import resize
 import csv
+import numpy as np
 
 
 # helpers functions
