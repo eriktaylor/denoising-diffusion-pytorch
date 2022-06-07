@@ -532,7 +532,6 @@ class GaussianDiffusion(nn.Module):
 # dataset classes
 
 class Dataset(data.Dataset):
-    #def __init__(self, folder, image_size, exts = ['jpg', 'jpeg', 'png']):
     def __init__(self, folder, image_size):
         super().__init__()
         self.folder = folder
@@ -578,7 +577,7 @@ class Dataset(data.Dataset):
         img = np.flip(img,2)
         sp_size = 128
         img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
-        imageout = torch.from_numpy(img).float().view(1,sp_size,sp_size,sp_size)
+        imageout = torch.from_numpy(img).float().view(sp_size,sp_size,sp_size)
         imageout = imageout*2-1
         return imageout
     
