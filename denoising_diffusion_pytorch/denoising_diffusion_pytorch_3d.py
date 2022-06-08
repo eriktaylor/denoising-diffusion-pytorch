@@ -230,7 +230,7 @@ class Unet(nn.Module):
         init_dim = None,
         out_dim = None,
         dim_mults=(1, 2, 4, 8),
-        channels = 64,
+        channels = 128,
         with_time_emb = True,
         resnet_block_groups = 8,
         learned_variance = False
@@ -359,7 +359,7 @@ class GaussianDiffusion(nn.Module):
         denoise_fn,
         *,
         image_size,
-        channels = 64,
+        channels = 128,
         timesteps = 1000,
         loss_type = 'l1',
         objective = 'pred_noise'
@@ -575,7 +575,7 @@ class Dataset(data.Dataset):
         img = np.swapaxes(img.get_data(),1,2)
         img = np.flip(img,1)
         img = np.flip(img,2)
-        sp_size = 64
+        sp_size = 128
         img = resize(img, (sp_size,sp_size,sp_size), mode='constant')
         imageout = torch.from_numpy(img).float().view(sp_size,sp_size,sp_size)
         imageout = imageout*2-1
