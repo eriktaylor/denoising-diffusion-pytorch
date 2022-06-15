@@ -132,7 +132,7 @@ class Block(nn.Module):
         super().__init__()
         self.proj = nn.Conv2d(dim, dim_out, 3, padding = 1)
         #self.norm = nn.GroupNorm(groups, dim_out) #N groups, N channels
-        self.norm = nn.LayerNorm(dim_out) #N = normalized_shape
+        self.norm = nn.LayerNorm([32,32,64,64]) #N = normalized_shape
         self.act = nn.SiLU()
 
     def forward(self, x, scale_shift = None):
